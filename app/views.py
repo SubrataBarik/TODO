@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import *
+from django.http import HttpResponseRedirect, HttpResponse
 # Create your views here.
 
 def home(request):
@@ -11,7 +12,7 @@ def home(request):
         TO=Todo(title=title , desc=desc)
         TO.save()
     return render(request, 'home.html' ,d)
-    
+
 def  update(request, pk):
     TO = Todo.objects.get(pk=pk)
     d = {'TO': TO}
