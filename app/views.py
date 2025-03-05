@@ -11,3 +11,20 @@ def home(request):
         TO=Todo(title=title , desc=desc)
         TO.save()
     return render(request, 'home.html' ,d)
+    
+def  update(request, pk):
+    TO = Todo.objects.get(pk=pk)
+    d = {'TO': TO}
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        desc = request.POST.get('desc')
+        TO.title = title
+        TO.desc = desc
+        TO.save()
+        return HttpResponseRedirect(reverse('home'))
+    return render(request, 'update.html', d)
+
+def delete(request, pk):
+    TO = Todo.objects.get(pk=pk)
+    TO.delete()
+    return HttpResponseRedirect(reverse('home'))
